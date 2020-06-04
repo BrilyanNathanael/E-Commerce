@@ -8,20 +8,70 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form action="{{route('register')}}" method="POST" enctype="multipart/form-data">   
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="nama" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="nama" type="text" class="form-control @error('name') is-invalid @enderror" name="nama" value="{{ old('nama') }}" autofocus>
 
-                                @error('name')
+                                @error('nama')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="nama_dapur" class="col-md-4 col-form-label text-md-right">{{ __('Nama Dapur') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nama_dapur" type="text" class="form-control @error('nama_dapur') is-invalid @enderror" name="nama_dapur" value="{{ old('nama_dapur') }}" autofocus>
+
+                                @error('nama_dapur')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="No_HP" class="col-md-4 col-form-label text-md-right">{{ __('No. Handphone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="NO_HP" type="text" class="form-control @error('No_HP') is-invalid @enderror" name="No_HP" value="{{ old('No_HP') }}" autofocus>
+
+                                @error('No_HP')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="alamat" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" autofocus>
+
+                                @error('alamat')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="KTP" class="col-md-4 col-form-label text-md-right">{{ __('KTP') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="KTP" type="file" name="KTP">
                             </div>
                         </div>
 

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use File;
+use Auth;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/register/menu';
 
     /**
      * Create a new controller instance.
@@ -50,9 +53,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nama' => 'required|alpha',
+            'nama_dapur' => 'required|alpha|unique:users',
+            'email' => 'required|email|unique:users',
+            'No_HP' => 'required|unique:users',
+            'KTP' => 'required',
+            'password' => 'required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/|confirmed'
         ]);
     }
 
@@ -64,8 +70,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $request = request();
+
+        $profileImage = $request->file('KTP');
+        $profileImageSaveAsName = time() . Auth::id() . "-profile." . $profileImage->getClientOriginalExtension();
+
+        $upload_path = 'profile_images/';
+        $profile_image_url = $upload_path . $profileImageSaveAsName;
+        $success = $profileImage->move($upload_path, $profileImageSaveAsName);
+
         return User::create([
-            'name' => $data['name'],
+            'role' => 'seller',
+            'nama' => $data['nama'],
+            'nama_dapur' => $data['nama_dapur'],
+            'No_HP' => $data['No_HP'],
+            'alamat' => $data['alamat'],
+            'KTP' => $profile_image_url,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
