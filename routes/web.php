@@ -20,7 +20,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/register/menu', 'RegisterMenuController@index');
+Route::post('/register/menu', 'RegisterMenuController@store')->name('RegisMenu.insert');
